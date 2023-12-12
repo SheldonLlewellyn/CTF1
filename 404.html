@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<h1 id="system-message">You broke my site idk how</h1>
+<section>
+  <p1>Click this button to go back to the homepage</p1>
+  <button type="submit" id="home">home</button>
+</section>
+
+
+<!--CSS BELOW THIS LINE
+-------------------------------------------------------------------------------------------
+-->
+<style>
+  hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: 1200px;
+    border-style: inset;
+    border-width: 3px;
+    border-color: #000000;
+  }
+
+  body {
+    background-color: #DAE6A0
+  }
+
+  section {
+    background-color: #66e2a0;
+    border-radius: 33px 33px 33px 33px;
+    -moz-border-radius: 33px 33px 33px 33px;
+    -webkit-border-radius: 33px 33px 33px 33px;
+    border: 3px solid #000000;
+    padding: 1em;
+    margin: 1em;
+    font-size: 1.2em;
+  }
+</style>
+<!-- JS BELOW THIS LINE 
+-------------------------------------------------------------------------------------------
+-->
+<script>
+  var home = document.getElementById("home");
+  home.addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
+</script>
+
+</html>

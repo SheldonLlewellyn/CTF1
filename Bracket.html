@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<article id="container">
+    <section>
+        <div><span id="player1">Player 1</span>
+            <input type="radio" id="player1r" name="p1vs2" value="win">
+        </div>
+        <div><span id="player2">Player 2</span>
+            <input type="radio" id="player2r" name="p1vs2" value="win">
+        </div>
+        <div><span id="player3">Player 3</span>
+            <input type="radio" id="player3r" name="p3vs4" value="win">
+        </div>
+        <div><span id="player4">Player 4</span>
+            <input type="radio" id="player4r" name="p3vs4" value="win">
+        </div>
+        <div><span id="player5">Player 5</span>
+            <input type="radio" id="player5r" name="p5vs6" value="win">
+        </div>
+        <div><span id="player6">Player 6</span>
+            <input type="radio" id="player6r" name="p5vs6" value="win">
+        </div>
+        <div><span id="player7">Player 7</span>
+            <input type="radio" id="player7r" name="p7vsp8" value="win">
+        </div>
+        <div><span id="player8">Player 8</span>
+            <input type="radio" id="player8r" name="p7vsp8" value="win">
+        </div>
+    </section>
+
+    <div class="connecter">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="line">
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+    </div>
+
+    <section id="quarterFinals">
+        <div><span id="1vs2winner"></span><input type="radio" id="SF1top" name="Semi-Finals1" value="win"></div>
+        <div><span id="3vs4winner"></span><input type="radio" id="SF1bottom" name="Semi-Finals1" value="win"></div>
+        <div><span id="5vs6winner"></span><input type="radio" id="SF2top" name="Semi-Finals2" value="win"></div>
+        <div><span id="7vs8winner"></span><input type="radio" id="SF2bottom" name="Semi-Finals2" value="win"></div>
+    </section>
+
+    <div class="connecter" id="conn2">
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="line" id="line2">
+        <div></div>
+        <div></div>
+    </div>
+
+    <section id="semiFinals">
+        <div><span id="Finalstop"></span><input type="radio" id="Finalstopwon" name="Finals" value="win"></div>
+        <div><span id="Finalsbottom"></span><input type="radio" id="Finalsbottomwon" name="Finals" value="win"></div>
+    </section>
+
+    <div class="connecter" id="conn3">
+        <div></div>
+    </div>
+
+    <div class="line" id="line3">
+        <div></div>
+    </div>
+
+    <section id="final">
+        <div><span id="fullwinner"></span></div>
+        <br>
+        <button type="submit" id="Celebrate">Celebrate!!!</button>
+    </section>
+    <button type="submit" id="test">Test</button>
+    <button type="submit" id="test">Upload Current Standings!</button>
+</article>
+</article>
+
+<style>
+    #container {
+        width: 800px;
+        height: 600px;
+        float: left;
+    }
+
+    section {
+        width: 130px;
+        height: 520px;
+        float: left;
+    }
+
+    section>div {
+        width: 100px;
+        height: 20px;
+        border: 1px solid #000;
+        margin: 10px 0;
+        background: #73789F;
+        color: white;
+        padding: 10px 10px 10px 20px;
+    }
+
+    section>div:nth-child(2n) {
+        margin-bottom: 40px;
+    }
+
+    .connecter {
+        width: 30px;
+        height: 520px;
+        float: left;
+    }
+
+    .line {
+        width: 30px;
+        height: 520px;
+        float: left;
+    }
+
+    .connecter div {
+        border: 1px solid #000;
+        border-left: none;
+        height: 50px;
+        width: 100%;
+        margin: 80px 0 0 1px;
+    }
+
+    .connecter div:first-child {
+        margin: 32px 0 0 1px;
+    }
+
+    .line div {
+        border-top: 1px solid #000;
+        margin: 133px 0 0 1px;
+    }
+
+    .line div:first-child {
+        margin-top: 55px;
+    }
+
+    #quarterFinals>div {
+        margin-top: 91px;
+    }
+
+    #quarterFinals>div:first-child {
+        margin-top: 37px;
+    }
+
+    #conn2 div {
+        margin-top: 133px;
+        height: 133px;
+    }
+
+    #conn2 div:first-child {
+        margin-top: 57px;
+    }
+
+    #line2 div {
+        margin-top: 270px;
+    }
+
+    #line2 div:first-child {
+        margin-top: 125px;
+    }
+
+    #semiFinals>div {
+        margin-top: 230px;
+    }
+
+    #semiFinals>div:first-child {
+        margin-top: 105px;
+    }
+
+    #conn3 div {
+        margin-top: 125px;
+        height: 270px;
+    }
+
+    #line3 div {
+        margin-top: 270px;
+    }
+
+    #final>div {
+        margin-top: 250px;
+    }
+    body {
+        background-color: #DAE6A0
+    }
+</style>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"; // Import auth related functions
+ 
+
+
+    var updatebutton = document.getElementById("test");
+    var Celebrate = document.getElementById("Celebrate");
+    updatebutton.addEventListener("click", function () {
+        // document.getElementById("player1").innerText = "Not logged in";
+        if (document.getElementById('player1r').checked) {
+            document.getElementById("1vs2winner").innerText = document.getElementById("player1").innerText
+        }
+        else if (document.getElementById('player2r').checked) {
+            document.getElementById("1vs2winner").innerText = document.getElementById("player2").innerText
+        }
+        else {
+            document.getElementById("1vs2winner").innerText = '';
+        }
+        if (document.getElementById('player3r').checked) {
+            document.getElementById("3vs4winner").innerText = document.getElementById("player3").innerText
+        }
+        else if (document.getElementById('player4r').checked) {
+            document.getElementById("3vs4winner").innerText = document.getElementById("player4").innerText
+        }
+        else {
+            document.getElementById("3vs4winner").innerText = '';
+        }
+        if (document.getElementById('player5r').checked) {
+            document.getElementById("5vs6winner").innerText = document.getElementById("player5").innerText
+        }
+        else if (document.getElementById('player6r').checked) {
+            document.getElementById("5vs6winner").innerText = document.getElementById("player6").innerText
+        }
+        else {
+            document.getElementById("5vs6winner").innerText = '';
+        }
+        if (document.getElementById('player7r').checked) {
+            document.getElementById("7vs8winner").innerText = document.getElementById("player7").innerText
+        }
+        else if (document.getElementById('player8r').checked) {
+            document.getElementById("7vs8winner").innerText = document.getElementById("player8").innerText
+        }
+        else {
+            document.getElementById("7vs8winner").innerText = '';
+        }
+        if (document.getElementById('SF1top').checked) {
+            document.getElementById("Finalstop").innerText = document.getElementById("1vs2winner").innerText
+        }
+        else if (document.getElementById('SF1bottom').checked) {
+            document.getElementById("Finalstop").innerText = document.getElementById("3vs4winner").innerText
+        }
+        else {
+            document.getElementById("Finalstop").innerText = '';
+        }
+        if (document.getElementById('SF2top').checked) {
+            document.getElementById("Finalsbottom").innerText = document.getElementById("5vs6winner").innerText
+        }
+        else if (document.getElementById('SF2bottom').checked) {
+            document.getElementById("Finalsbottom").innerText = document.getElementById("7vs8winner").innerText
+        }
+        else {
+            document.getElementById("Finalsbottom").innerText = '';
+        }
+        if (document.getElementById('Finalstopwon').checked) {
+            document.getElementById("fullwinner").innerText = document.getElementById("Finalstop").innerText
+        }
+        else if (document.getElementById('Finalsbottomwon').checked) {
+            document.getElementById("fullwinner").innerText = document.getElementById("Finalsbottom").innerText
+        }
+        else {
+            document.getElementById("fullwinner").innerText = '';
+        }
+
+    });
+
+    function writeTournamentData(userId, email) {
+        const db = getDatabase();
+        set(ref(db, 'users/' + userId+ TournamentName), {
+            email: email,
+        });
+    }
+
+
+</script>
+
+</html>

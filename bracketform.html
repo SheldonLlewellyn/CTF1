@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<p1 id="user-info">Not logged in</p1>
+<h1 id="Heading">Create a Tournament Bracket!</h1>
+<section>
+    <p2>How many teams are there?</p2>
+    <input type="number" value="2" min="2" max="8" step="1" id="amount" />
+    <br>
+    <p3>What is the name of this bracket?</p3>
+    <input type="text" name="Nameinput" id="TournamentName" placeholder="Name">
+    <br>
+    <button type="submit" id="Generate">Generate</button>
+</section>
+<h2 id="Heading2">Existing Brackets</h2>
+<section>
+
+    <p>Blank for now</p>
+
+
+</section>
+<button id="signOut">Log out here</button>
+
+
+<!--CSS BELOW THIS LINE
+-------------------------------------------------------------------------------------------
+-->
+<style>
+    hr {
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: 1200px;
+        border-style: inset;
+        border-width: 3px;
+        border-color: #000000;
+    }
+
+    body {
+        background-color: #DAE6A0
+    }
+
+    section {
+        background-color: #66e2a0;
+        border-radius: 33px 33px 33px 33px;
+        -moz-border-radius: 33px 33px 33px 33px;
+        -webkit-border-radius: 33px 33px 33px 33px;
+        border: 3px solid #000000;
+        padding: 1em;
+        margin: 1em;
+        font-size: 1.2em;
+    }
+</style>
+<!-- JS BELOW THIS LINE 
+-------------------------------------------------------------------------------------------
+-->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"; // Import auth related functions
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyARjPsBmCCDq1_zkY_ga0BJeCc9NidHnEc",
+        authDomain: "tournament-bracket-d2b95.firebaseapp.com",
+        databaseURL: "https://tournament-bracket-d2b95-default-rtdb.firebaseio.com",
+        projectId: "tournament-bracket-d2b95",
+        storageBucket: "tournament-bracket-d2b95.appspot.com",
+        messagingSenderId: "457119553771",
+        appId: "1:457119553771:web:f4d41c1cb8945169b586ae",
+        measurementId: "G-YK5F91BBEJ"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app); // Initialize Firebase auth
+    const database = getDatabase(app);
+    var useridnum = '';
+
+    auth.onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            const displayName = user.displayName;
+            const email = user.email;
+            const uid = user.uid;
+            useridnum = uid;
+            writeUserData(uid, email);
+            // Display user information on the web page
+            document.getElementById("user-info").innerText = "Signed in as " + email;
+        } else {
+            // No user is signed in.
+            // You can hide or clear the user information on the page.
+            //alert("no account signed in")
+            document.getElementById("user-info").textContent = "Not logged in";
+        }
+    });
+
+    var Generate = document.getElementById("Generate");
+    Generate.addEventListener("click", function () {
+        var Amount = document.getElementById('amount').value;
+        var TournamentName = document.getElementById('TournamentName').value;
+        if (TournamentName) {
+            AddTournamentData(useridnum, TournamentName, Amount);
+            window.location.href = "Bracket.html";
+        }
+        else {
+            alert('Enter a Tournament Name');
+        }
+    });
+
+    var logout = document.getElementById("signOut");
+    logout.addEventListener("click", function () {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
+        window.location.href = "index.html";
+    });
+
+    function AddBracket() {
+        //firebase.database().ref('/users').on('value, snapshpt =>{});
+
+
+    }
+    function writeUserData(userId, email) {
+        const db = getDatabase();
+        set(ref(db, 'users/' + userId), {
+            email: email,
+        })
+            ;
+    }
+
+    function AddTournamentData(userId, TournamentName, Amount) {
+        const db = getDatabase();
+        let string = 'users/' + userId + '/'
+        alert(string)
+        set(ref(db, string + TournamentName), {
+            Quantity: Amount,
+        });
+    }
+</script>
+
+</html>

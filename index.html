@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Sheldon Tournament Generator</title>
+<h1 id="Site-Title">Create a Tournament Bracket!</h1>
+<section>
+  <p1>If you don't have an account, register and create all the brackets you need!</p1>
+  <hr>
+  <input type="text" name="username" id="usernamelogin" placeholder="Username">
+  <input type="password" name="password" id="passwordlogin" placeholder="Password">
+  <input type="hidden" name="login" value="login">
+  <button type="submit" id="Loginattempt">Login</button>
+  <br>
+
+  <input type="text" name="username" id="usernamereg" placeholder="Username">
+  <input type="password" name="password" id="passwordreg" placeholder="Password">
+  <input type="hidden" name="register" value="register">
+  <button type="submit" id="Registerattempt">Register</button>
+  <br>
+
+  <input type="text" name="username" id="Email" placeholder="Username">
+  <button type="submit" id="resetbutton">Send Email & Reset!</button>
+</section>
+
+<!--CSS BELOW THIS LINE
+-------------------------------------------------------------------------------------------
+-->
+<style>
+  hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: 10%;
+    border-style: inset;
+    border-width: 3px;
+    border-color: #000000;
+  }
+
+  body {
+    background-color: #DAE6A0
+  }
+
+  section {
+    background-color: #66e2a0;
+    border-radius: 33px 33px 33px 33px;
+    -moz-border-radius: 33px 33px 33px 33px;
+    -webkit-border-radius: 33px 33px 33px 33px;
+    border: 3px solid #000000;
+    padding: 1em;
+    margin: 1em;
+    font-size: 1.2em;
+  }
+</style>
+
+<!-- JS BELOW THIS LINE 
+-------------------------------------------------------------------------------------------
+-->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"; // Import auth related functions
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyARjPsBmCCDq1_zkY_ga0BJeCc9NidHnEc",
+    authDomain: "tournament-bracket-d2b95.firebaseapp.com",
+    databaseURL: "https://tournament-bracket-d2b95-default-rtdb.firebaseio.com",
+    projectId: "tournament-bracket-d2b95",
+    storageBucket: "tournament-bracket-d2b95.appspot.com",
+    messagingSenderId: "457119553771",
+    appId: "1:457119553771:web:f4d41c1cb8945169b586ae",
+    measurementId: "G-YK5F91BBEJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app); // Initialize Firebase auth
+
+  var loginbutton = document.getElementById("Loginattempt");
+  var regbutton = document.getElementById("Registerattempt");
+  var reset = document.getElementById("resetbutton");
+
+  loginbutton.addEventListener("click", function () {
+    var Username = document.getElementById('usernamelogin').value;
+    var Password = document.getElementById('passwordlogin').value;
+
+    if (Username && Password) { // Check if they are not empty
+      signInWithEmailAndPassword(auth, Username, Password)
+        .then((userCredential) => {
+          alert("Account Signed in!");
+          var user = userCredential.user;
+          window.location.href = "bracketform.html";
+          // You can add code to redirect to a different page after successful login
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert("Login failed: " + errorMessage);
+        });
+    }
+    else {
+      alert("Please fill in both fields");
+    }
+  });
+
+  regbutton.addEventListener("click", function () {
+    var Username = document.getElementById('usernamereg').value;
+    var Password = document.getElementById('passwordreg').value;
+
+    if (Username && Password) {
+      createUserWithEmailAndPassword(auth, Username, Password)
+        .then((userCredential) => {
+          alert("Account Created");
+          var user = userCredential.user;
+          window.location.href = "bracketform.html";
+          // You can add code to redirect to a different page after successful registration
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert("Registration failed: " + errorMessage);
+        });
+    }
+    else {
+      alert("Please fill in both fields");
+    }
+  });
+
+  reset.addEventListener("click", function () {
+    var email = document.getElementById('Email').value;
+    // [START sendpasswordemail]
+    alert("button clicked " + email)
+    sendPasswordResetEmail(auth,email)
+      .then(function () {
+        // Password reset email sent successfully
+        alert("Password reset email sent.")
+      })
+      .catch(function (error) {
+        // An error occurred
+        alert("Error sending password reset email:", error)
+      });
+  });
+  
+  function SetLoginInfo() {
+    document.getElementById("nom").innerHTML = parseInt(document.getElementById("nom").innerHTML) + 1;
+    localStorage.setItem("key", parseInt(document.getElementById("nom").innerHTML));
+  }
+
+
+  
+
+</script>
+
+
+</html>
